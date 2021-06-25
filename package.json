@@ -1,7 +1,7 @@
 {
   "name": "gramup-web",
   "version": "1.0.0",
-  "description": "A starter template for React with Typescript using Webpack 5",
+  "description": "A lightweight utility to keep your files safe.",
   "theme-color": "#000000",
   "background-color": "#ffffff",
   "scripts": {
@@ -14,14 +14,12 @@
     "test:watch": "jest --watch"
   },
   "keywords": [
-    "React",
-    "TypeScript",
-    "Webpack 5",
-    "Starter Template",
-    "Boilerplate"
+    "Backup",
+    "Utility",
+    "Telegram"
   ],
-  "author": "Vishwas",
-  "license": "MIT",
+  "author": "Rohit T P | Sunith VS",
+  "license": "GNU AFFERO GENERAL PUBLIC LICENSE V3",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
