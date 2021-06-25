@@ -4,7 +4,7 @@
 
 import React from "react";
 import { mount, shallow } from "enzyme";
-import { HandleAppState } from "../web/react/HandleAppState";
+import { HandleAppState } from "../web/react/components/HandleAppState";
 import { act } from "react-dom/test-utils";
 
 const snackbar = "WithStyles(ForwardRef(Snackbar))"; 
