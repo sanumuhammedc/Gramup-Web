@@ -4,7 +4,7 @@
 	}],
 	"settings": {
 		"editor.snippetSuggestions": "inline",
-		"files.exclude": {
+		"files.excludee": {
 			".github": true,
 			"**/.git": true,
 			".gitignore": true,
@@ -41,6 +41,7 @@
 			"eqeqeq",
 			"firebaserc",
 			"giphy",
+			"gramup",
 			"kohler",
 			"linebreak",
 			"pmmmwh",
