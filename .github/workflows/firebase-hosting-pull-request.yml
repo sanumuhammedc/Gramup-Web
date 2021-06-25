@@ -26,6 +26,9 @@ jobs:
       
       - name: Install dependencies
         run: yarn install --prefer-offline --frozen-lockfile
+        
+      - name: Build With WebPack
+        run: yarn build
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
