@@ -25,7 +25,8 @@
 			"tsconfig.json": true,
 			"setupTests.js": true,
 			"__tests__/__snapshots__":true,
-			"functions/yarn.lock":true
+			"functions/yarn.lock":true,
+			"README.md": true
 		},
 		"eslint.validate": ["typescript", "javascript", "javascriptreact", "typescriptreact"],
 		"editor.codeActionsOnSave": {

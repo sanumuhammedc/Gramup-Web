@@ -4,7 +4,7 @@ interface image
   srcSet: string | undefined,
   width: string | number | undefined,
   height: string | number | undefined
-};
+}
 
 const imageContent: image;
 
