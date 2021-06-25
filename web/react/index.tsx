@@ -1,6 +1,7 @@
 import { Workbox } from "workbox-window";
 import ReactDOM from "react-dom";
-import HandleAppState from "./components/HandleAppState";
+import { HandleAppState } from "./components/HandleAppState";
+import { SignIn } from "./routes/SignIn";
 
 const wb = new Workbox("sw.js");
 
@@ -12,7 +13,7 @@ const App = ({wb}: { wb: Workbox; }) =>
     return (
         <>
             <HandleAppState wb={wb} /> 
-            <h1>React TypeScript Webpack Starter Template</h1>
+            <SignIn />
         </>
     );
 };

@@ -19,11 +19,12 @@
     "Telegram"
   ],
   "author": "Rohit T P | Sunith VS",
-  "license": "GNU AFFERO GENERAL PUBLIC LICENSE V3",
+  "license": "AGPL-3.0",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
+    "material-ui-phone-number": "^2.2.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "workbox-background-sync": "^6.1.5",
@@ -45,6 +46,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@types/enzyme": "^3.10.8",
     "@types/jest": "^26.0.23",
+    "@types/material-ui-phone-number": "^2.2.0",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
