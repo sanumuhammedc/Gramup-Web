@@ -1,5 +1,5 @@
 {
-  "name": "GramUp-Web",
+  "name": "gramup-web",
   "version": "1.0.0",
   "description": "A starter template for React with Typescript using Webpack 5",
   "theme-color": "#000000",
