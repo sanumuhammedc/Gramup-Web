@@ -46,10 +46,7 @@ jobs:
         key: ${{ runner.os }}-yarn-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
     
     - name: Install dependencies
-      run: |
-        yarn install --prefer-offline --frozen-lockfile
-        cd functions && yarn install --prefer-offline --frozen-lockfile
-
+      run: yarn ci
     - name: Run Lint  
       run: yarn lint
 

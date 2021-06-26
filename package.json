@@ -1,31 +1,33 @@
 {
   "name": "gramup-web",
   "version": "1.0.0",
-  "description": "A starter template for React with Typescript using Webpack 5",
+  "description": "A lightweight utility to keep your files safe.",
   "theme-color": "#000000",
   "background-color": "#ffffff",
   "scripts": {
     "start": "webpack serve --config webpack/webpack.config.js --env env=dev",
+    "test:watch": "jest --watch",
+    "ci": "yarn ci:web && yarn ci:functions",
+    "ci:web": "yarn install --prefer-offline --frozen-lockfile",
+    "ci:functions": "cd functions && yarn install --prefer-offline --frozen-lockfile",
     "build": "webpack --config webpack/webpack.config.js --env env=prod",
     "lint": "yarn lint:web && yarn lint:functions",
     "lint:web": "eslint --fix \"web/**/*.{js,jsx,ts,tsx,json}\"",
     "lint:functions": "eslint --fix \"functions/src/**/*.{js,ts,json}\"",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest"
   },
   "keywords": [
-    "React",
-    "TypeScript",
-    "Webpack 5",
-    "Starter Template",
-    "Boilerplate"
+    "Backup",
+    "Utility",
+    "Telegram"
   ],
-  "author": "Vishwas",
-  "license": "MIT",
+  "author": "Rohit T P | Sunith VS",
+  "license": "AGPL-3.0",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
+    "material-ui-phone-number": "^2.2.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "workbox-background-sync": "^6.1.5",
@@ -47,6 +49,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@types/enzyme": "^3.10.8",
     "@types/jest": "^26.0.23",
+    "@types/material-ui-phone-number": "^2.2.0",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
