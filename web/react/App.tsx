@@ -4,6 +4,8 @@ import { Workbox } from "workbox-window";
 
 import logo from "../assets/icons/logo512.png";
 import gif from "../assets/images/giphy.gif";
+import BottomNavBar from './Components/BottomNavBar';
+
 
 export const App = ({wb}: { wb: Workbox; }) => 
 {
@@ -14,6 +16,7 @@ export const App = ({wb}: { wb: Workbox; }) =>
             <Counter />
             <img src={logo.src} srcSet={logo.srcSet} width={logo.width} height={logo.height} loading="lazy" alt="React logo" />
             <img src={gif} loading="lazy" alt="Silicon valley gif" />
+            
         </>
     );
 };
