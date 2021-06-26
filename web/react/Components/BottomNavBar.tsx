@@ -22,7 +22,7 @@ function BottomNavBar()
     const classes = useStyles();
     const [value, setValue] = React.useState("home");
 
-    const handleChange = (event: any, newValue: React.SetStateAction<string>) => 
+    const handleChange = (event: React.ChangeEvent<{[key:string]: unknown}>, newValue: React.SetStateAction<string>) => 
     {
         setValue(newValue);
     };
