@@ -22,10 +22,11 @@ function BottomNavBar()
     const classes = useStyles();
     const [value, setValue] = React.useState("home");
 
-    const handleChange = (event: React.ChangeEvent<{[key:string]: unknown}>, newValue: React.SetStateAction<string>) => 
+    function handleChange(event: React.ChangeEvent<{[key:string]: unknown}>, newValue: string)
     {
         setValue(newValue);
-    };
+    }
+    
     return (
 
     // Bottom navigation bar will hide for the screen size more than sm
