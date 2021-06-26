@@ -17,7 +17,7 @@ jobs:
       with:
         node-version: '16.x'  
     - name: Install Dependencies
-      run: cd functions && yarn install --frozen-lockfile
+      run: yarn ci:functions
     - uses: w9jds/firebase-action@master
       with:
         args: deploy --only functions
