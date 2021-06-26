@@ -34,7 +34,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Copyright() 
+/**
+ * Creates a component used to display copyright string.
+ * 
+ * @author Rohit T P
+ * @returns { JSX.Element } CopyRight Component
+ */
+function CopyRight(): JSX.Element 
 {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -48,7 +54,16 @@ function Copyright()
     );
 }
 
-function StageViceInput({...props})
+/**
+ * Creates a component that dynamically displays inputs based on current 
+ * stage of signing-in.
+ * 
+ * @author Rohit T P
+ * 
+ * @param {{[prop: string]: unknown}} props
+ * @returns { JSX.Element | null } CopyRight Component
+ */
+function StageViceInput({...props}: { [prop: string]: unknown; }): JSX.Element | null
 {
 
     if(props.id === Stages.PHNO)
@@ -87,7 +102,13 @@ function StageViceInput({...props})
     return null;    
 }
 
-export const SignIn = () => 
+/**
+ * Creates a component that displays a sign in form.
+ * 
+ * @author Rohit T P
+ * @returns { JSX.Element } SignIn Component
+ */
+export const SignIn = (): JSX.Element => 
 {
     const [stage, setStage] = useState(Stages.PHNO);
     const [value, setValue] = useState("");
@@ -132,7 +153,7 @@ export const SignIn = () =>
                 </form>
             </div>
             <Box mt={8}>
-                <Copyright />
+                <CopyRight />
             </Box>
         </Container>
     );
