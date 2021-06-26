@@ -33,7 +33,9 @@
 			"source.fixAll.eslint": true
 		},
 		"cSpell.words": [
+			"AGPL",
 			"Cacheable",
+			"PHNO",
 			"Sunith",
 			"Vishwas",
 			"affero",
@@ -59,6 +61,7 @@
 			"serviceworker",
 			"v",
 			"webfonts",
+			"webm",
 			"webp",
 			"wojtekmaj"
 		],

@@ -8,20 +8,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import MuiPhoneNumber from "material-ui-phone-number";
+import TextField from "@material-ui/core/TextField";
 
-function Copyright() 
-{
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {"Copyright © "}
-            <Link color="inherit" href="https://github.com/rohittp0/Gramup-Web">
-        GramUp
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
+import { FormEvent, useState } from "react";
+
+const Stages = { DONE: "done", PHNO: "phNo", OTP: "otp", PWD: "pwd" };
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -43,13 +34,71 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function Copyright() 
+{
+    return (
+        <Typography variant="body2" color="textSecondary" align="center">
+            {"Copyright © "}
+            <Link color="inherit" href="https://github.com/rohittp0/Gramup-Web">
+        GramUp
+            </Link>{" "}
+            {new Date().getFullYear()}
+            {"."}
+        </Typography>
+    );
+}
+
+function StageViceInput({...props})
+{
+
+    if(props.id === Stages.PHNO)
+        return (
+            <MuiPhoneNumber 
+                defaultCountry="in"
+                label="Phone Number"
+                autoComplete="tel-national"
+                {...props}
+            />
+        );  
+    
+    if(props.id === Stages.PWD)
+        return (
+            <TextField
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                {...props}
+            />
+        );
+    
+    if(props.id === Stages.OTP)
+        return (
+            <TextField
+                label="OTP"
+                type="text"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                inputProps={{pattern: "[0-9]{5}"}}
+                {...props}
+            />
+        );   
+
+
+    return null;    
+}
+
 export const SignIn = () => 
 {
+    const [stage, setStage] = useState(Stages.PHNO);
+    const [value, setValue] = useState("");
     const classes = useStyles();
 
-    function handleNumber(event: unknown)
+    function handleSubmit(event: FormEvent)
     {
-        console.log(event);
+        event.preventDefault();
+        setStage((cur) => cur === Stages.OTP ? Stages.PWD : Stages.OTP);
+        console.log(value);
+        setValue("");
     }
 
     return (
@@ -62,8 +111,15 @@ export const SignIn = () =>
                 <Typography component="h1" variant="h5">
           Sign in With Telegram
                 </Typography>
-                <form className={classes.form}>
-                    <MuiPhoneNumber defaultCountry={"us"} onChange={handleNumber} required/>
+                <form className={classes.form} onSubmit={handleSubmit}>
+                    <StageViceInput 
+                        onChange={(e: { target: { value: string; }; }) => setValue(e.target?.value ?? e)} 
+                        margin="normal"
+                        required={true}
+                        fullWidth={true}
+                        id={stage}
+                        value={value}
+                    />
                     <Button
                         type="submit"
                         fullWidth
