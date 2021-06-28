@@ -103,12 +103,12 @@ function StageViceInput({...props}: { [prop: string]: unknown; }): JSX.Element |
 }
 
 /**
- * Creates a component that displays a sign in form.
+ * Component that displays a sign-in form.
  * 
  * @author Rohit T P
  * @returns { JSX.Element } SignIn Component
  */
-export const SignIn = (): JSX.Element => 
+function SignIn(): JSX.Element
 {
     const [stage, setStage] = useState(Stages.PHNO);
     const [value, setValue] = useState("");
@@ -157,4 +157,6 @@ export const SignIn = (): JSX.Element =>
             </Box>
         </Container>
     );
-};
+}
+
+export default SignIn;
