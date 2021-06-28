@@ -10,3 +10,6 @@ yarn-error.log*
 # Compiled JavaScript files
 functions/lib/**/*.js
 functions/lib/**/*.js.map
+
+#Secrets
+**/.env

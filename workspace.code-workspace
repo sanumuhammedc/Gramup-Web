@@ -26,7 +26,8 @@
 			"setupTests.js": true,
 			"__tests__/__snapshots__":true,
 			"functions/yarn.lock":true,
-			"README.md": true
+			"README.md": true,
+			"**/.env": true
 		},
 		"eslint.validate": ["typescript", "javascript", "javascriptreact", "typescriptreact"],
 		"editor.codeActionsOnSave": {

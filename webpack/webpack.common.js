@@ -4,6 +4,7 @@ const package = require("../package.json");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const CopyPlugin = require("copy-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 const {InjectManifest} = require("workbox-webpack-plugin");
 
 const buildFolder = path.resolve(__dirname, "..", "./build");
@@ -61,6 +62,7 @@ module.exports = (env) => ({
         filename: "bundle.js",
     },
     plugins: [
+        new Dotenv(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "..", "./web/index.html"),
             title: package.name,
