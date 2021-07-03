@@ -6,7 +6,7 @@ Reading and following these guidelines will help us make the contribution proces
 
 ## Quicklinks
 
-* [Code of Conduct](https://github.com/rohittp0/Gramup-Web/blob/main/.github/CODE_OF_CONDUCT)
+* [Code of Conduct](https://github.com/rohittp0/Gramup-Web/blob/main/.github/CODE_OF_CONDUCT.md)
 * [Getting Started](#getting-started)
     * [Issues](#issues)
     * [Pull Requests](#pull-requests)
