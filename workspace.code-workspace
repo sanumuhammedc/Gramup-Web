@@ -26,14 +26,17 @@
 			"setupTests.js": true,
 			"__tests__/__snapshots__":true,
 			"functions/yarn.lock":true,
-			"README.md": true
+			"README.md": true,
+			"**/.env": true
 		},
 		"eslint.validate": ["typescript", "javascript", "javascriptreact", "typescriptreact"],
 		"editor.codeActionsOnSave": {
 			"source.fixAll.eslint": true
 		},
 		"cSpell.words": [
+			"AGPL",
 			"Cacheable",
+			"PHNO",
 			"Sunith",
 			"Vishwas",
 			"affero",
@@ -59,11 +62,12 @@
 			"serviceworker",
 			"v",
 			"webfonts",
+			"webm",
 			"webp",
 			"wojtekmaj"
 		],
 		"editor.formatOnSaveMode": "modifications",
-		"diffEditor.codeLens": true,
+		"diffEditor.codeLens": false,
 		"editor.minimap.enabled": false
 	},
 	"extensions": {

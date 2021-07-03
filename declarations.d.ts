@@ -1,3 +1,11 @@
+declare namespace NodeJS 
+{
+  export interface ProcessEnv 
+  {
+    TELEGRAM_API_ID: string;
+    TELEGRAM_API_HASH: string;
+  }
+}
 interface image 
 {
   src: string | undefined,
