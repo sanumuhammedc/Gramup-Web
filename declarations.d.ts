@@ -2,7 +2,7 @@ declare namespace NodeJS
 {
   export interface ProcessEnv 
   {
-    TELEGRAM_API_ID: string;
+    TELEGRAM_API_ID: number;
     TELEGRAM_API_HASH: string;
   }
 }

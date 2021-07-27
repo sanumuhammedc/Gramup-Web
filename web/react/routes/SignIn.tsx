@@ -12,6 +12,8 @@ import TextField from "@material-ui/core/TextField";
 
 import { FormEvent, useState } from "react";
 
+import MTProto from "@mtproto/core/envs/browser";
+
 const Stages = { DONE: "done", PHNO: "phNo", OTP: "otp", PWD: "pwd" };
 
 const useStyles = makeStyles((theme) => ({
@@ -110,13 +112,31 @@ function StageViceInput({...props}: { [prop: string]: unknown; }): JSX.Element |
  */
 function SignIn(): JSX.Element
 {
+
+    const mtproto = new MTProto({
+        api_id: process.env.TELEGRAM_API_ID,
+        api_hash: process.env.TELEGRAM_API_HASH
+    });
+
+    mtproto.setDefaultDc(5);
+  
     const [stage, setStage] = useState(Stages.PHNO);
     const [value, setValue] = useState("");
     const classes = useStyles();
 
-    function handleSubmit(event: FormEvent)
+    async function handleSubmit(event: FormEvent)
     {
         event.preventDefault();
+        if(stage === Stages.PHNO)
+            console.log(await mtproto.call("auth.sendCode", 
+                {
+                    phone_number: value.replace(/\s|-/g, ""),
+                    settings: {
+                        _: "codeSettings",
+                        current_number: false
+                    },
+                }));
+
         setStage((cur) => cur === Stages.OTP ? Stages.PWD : Stages.OTP);
         console.log(value);
         setValue("");
