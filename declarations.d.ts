@@ -30,3 +30,27 @@ declare module "*.svg" {
 
 declare module "*.ttf"
 declare module "*.html"
+
+declare module "@mtproto/core/envs/browser"{
+  class MTProto
+  {
+      constructor({api_id, api_hash}:{api_id: number, api_hash: string})
+      {
+          this.api_id = api_id;
+          this.api_hash = api_hash;
+      }  
+
+      public call(method: string, options: Record<string, unknown>)
+      {
+          this.method = method;
+          this.options = options;
+          return new Promise();
+      }
+
+      public setDefaultDc(dcID: number)
+      {
+          this.dcID = dcID;
+      }
+  }
+  export default MTProto;
+}
