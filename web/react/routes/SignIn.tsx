@@ -12,7 +12,9 @@ import TextField from "@material-ui/core/TextField";
 
 import { FormEvent, useState } from "react";
 
-import MTProto from "@mtproto/core/envs/browser";
+import Telegram from "../utils/telegram";
+import { Errors, Status } from "../utils/constants";
+import { showError } from "../utils/functions";
 
 const Stages = { DONE: "done", PHNO: "phNo", OTP: "otp", PWD: "pwd" };
 
@@ -112,13 +114,7 @@ function StageViceInput({...props}: { [prop: string]: unknown; }): JSX.Element |
  */
 function SignIn(): JSX.Element
 {
-
-    const mtproto = new MTProto({
-        api_id: process.env.TELEGRAM_API_ID,
-        api_hash: process.env.TELEGRAM_API_HASH
-    });
-
-    mtproto.setDefaultDc(5);
+    const client = new Telegram(process.env.TELEGRAM_API_ID, process.env.TELEGRAM_API_HASH);
   
     const [stage, setStage] = useState(Stages.PHNO);
     const [value, setValue] = useState("");
@@ -128,17 +124,32 @@ function SignIn(): JSX.Element
     {
         event.preventDefault();
         if(stage === Stages.PHNO)
-            console.log(await mtproto.call("auth.sendCode", 
-                {
-                    phone_number: value.replace(/\s|-/g, ""),
-                    settings: {
-                        _: "codeSettings",
-                        current_number: false
-                    },
-                }));
+        {
+            await client.sendCode(value.replace(/\s|-/g, ""));
+            setStage(Stages.OTP);
+        }
+        else if(stage === Stages.OTP)
+        {
+            const result = await client.signIn(Number(value));
 
-        setStage((cur) => cur === Stages.OTP ? Stages.PWD : Stages.OTP);
-        console.log(value);
+            if(result === Status.SIGN_IN_SUCCESS)
+                setStage(Stages.DONE);
+            else if(result === Errors.PASSWORD_REQUIRED)
+                setStage(Stages.PWD);
+            else 
+                showError(result), setStage(Stages.PHNO);                
+        }
+        else if(stage === Stages.PWD)
+        {
+            const result = await client.checkPassword(value).catch((er) => showError(er));
+
+            if(!result)
+                setStage(Stages.PHNO);
+            else 
+                setStage(Stages.DONE);    
+        }
+
+
         setValue("");
     }
 

@@ -34,20 +34,24 @@ declare module "*.html"
 declare module "@mtproto/core/envs/browser"{
   class MTProto
   {
+      crypto = {
+          getSRPParams
+      };
+      
       constructor({api_id, api_hash}:{api_id: number, api_hash: string})
       {
           this.api_id = api_id;
           this.api_hash = api_hash;
       }  
 
-      public call(method: string, options: Record<string, unknown>)
+      async public call(method: string, params: Record<string, unknown>, options: Record<string, unknown>)
       {
           this.method = method;
           this.options = options;
-          return new Promise();
+          return {};
       }
 
-      public setDefaultDc(dcID: number)
+      async public setDefaultDc(dcID: number)
       {
           this.dcID = dcID;
       }
