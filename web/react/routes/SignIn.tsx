@@ -1,8 +1,6 @@
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Link from "@material-ui/core/Link";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,11 +8,12 @@ import Container from "@material-ui/core/Container";
 import MuiPhoneNumber from "material-ui-phone-number";
 import TextField from "@material-ui/core/TextField";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
-import Telegram from "../utils/telegram";
 import { Errors, Status } from "../utils/constants";
 import { showError } from "../utils/functions";
+import Telegram from "../utils/telegram";
+import Link from "@material-ui/core/Link";
 
 const Stages = { DONE: "done", PHNO: "phNo", OTP: "otp", PWD: "pwd" };
 
@@ -37,26 +36,6 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
-
-/**
- * Creates a component used to display copyright string.
- * 
- * @author Rohit T P
- * @returns { JSX.Element } CopyRight Component
- */
-function CopyRight(): JSX.Element 
-{
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {"Copyright © "}
-            <Link color="inherit" href="https://github.com/rohittp0/Gramup-Web">
-        GramUp
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
 
 /**
  * Creates a component that dynamically displays inputs based on current 
@@ -112,10 +91,8 @@ function StageViceInput({...props}: { [prop: string]: unknown; }): JSX.Element |
  * @author Rohit T P
  * @returns { JSX.Element } SignIn Component
  */
-function SignIn(): JSX.Element
+function SignIn({client} : {client: Telegram}): JSX.Element
 {
-    const client = new Telegram(process.env.TELEGRAM_API_ID, process.env.TELEGRAM_API_HASH);
-  
     const [stage, setStage] = useState(Stages.PHNO);
     const [value, setValue] = useState("");
     const classes = useStyles();
@@ -123,35 +100,48 @@ function SignIn(): JSX.Element
     async function handleSubmit(event: FormEvent)
     {
         event.preventDefault();
-        if(stage === Stages.PHNO)
-        {
-            await client.sendCode(value.replace(/\s|-/g, ""));
-            setStage(Stages.OTP);
-        }
-        else if(stage === Stages.OTP)
-        {
-            const result = await client.signIn(Number(value));
 
-            if(result === Status.SIGN_IN_SUCCESS)
-                setStage(Stages.DONE);
-            else if(result === Errors.PASSWORD_REQUIRED)
-                setStage(Stages.PWD);
-            else 
-                showError(result), setStage(Stages.PHNO);                
-        }
-        else if(stage === Stages.PWD)
+        try
         {
-            const result = await client.checkPassword(value).catch((er) => showError(er));
+            if(stage === Stages.PHNO)
+            {
+                await client.sendCode(value.replace(/\s|-/g, ""));
+                setStage(Stages.OTP);
+            }
+            else if(stage === Stages.OTP)
+            {
+                const result = await client.signIn(Number(value));
 
-            if(!result)
-                setStage(Stages.PHNO);
-            else 
-                setStage(Stages.DONE);    
+                if(result === Errors.INVALID_OTP)
+                    showError(result);
+                else 
+                    setStage(result === Status.SIGN_IN_SUCCESS? Stages.DONE : Stages.PWD);     
+            }
+            else if(stage === Stages.PWD)
+            {
+                const result = await client.checkPassword(value);
+
+                if(result === Status.SIGN_IN_SUCCESS)
+                    setStage(Stages.DONE);
+                
+                showError(result);
+            }
         }
-
+        catch(error)
+        {
+            showError(error);
+            setStage(Stages.PHNO);
+        }
 
         setValue("");
     }
+
+    useEffect(() => 
+    {
+        if(stage === Stages.DONE)
+            location.href = "home";
+    }, 
+    [stage]);
 
     return (
         <Container component="main" maxWidth="xs">
@@ -182,10 +172,16 @@ function SignIn(): JSX.Element
             Sign In
                     </Button>
                 </form>
+                {
+                    stage === Stages.OTP ?
+                        <Typography variant="body2" color="textSecondary" align="center" >
+                            <Link color="inherit" href="#" onClick={()=>setStage(Stages.PHNO)}>
+                                Edit Phone Number
+                            </Link>
+                        </Typography>
+                        : null
+                }
             </div>
-            <Box mt={8}>
-                <CopyRight />
-            </Box>
         </Container>
     );
 }

@@ -105,7 +105,7 @@ class Telegram
             });
 
             if(signInResult._ === Errors.ACCOUNT_NOT_CREATED)
-                return Errors.ACCOUNT_NOT_CREATED;  
+                throw Errors.ACCOUNT_NOT_CREATED;  
 
             return Status.SIGN_IN_SUCCESS;     
         }
@@ -113,9 +113,11 @@ class Telegram
         {
             if (error.error_message === Errors.PASSWORD_REQUIRED)
                 return Errors.PASSWORD_REQUIRED;
+            
+            if(error.error_message ==="PHONE_CODE_INVALID")
+                return Errors.INVALID_OTP;    
 
-            console.error(error);
-            return Errors.UNKNOWN_ERROR;  
+            throw Errors.UNKNOWN_ERROR;  
         }
     }
     
@@ -143,14 +145,26 @@ class Telegram
             password,
         });
   
-        return this.call("auth.checkPassword", {
-            password: {
-                _: "inputCheckPasswordSRP",
-                srp_id,
-                A,
-                M1,
-            },
-        });
+        try
+        {
+            await this.call("auth.checkPassword", {
+                password: {
+                    _: "inputCheckPasswordSRP",
+                    srp_id,
+                    A,
+                    M1,
+                },
+            });
+
+            return Status.SIGN_IN_SUCCESS;
+        }
+        catch(error)
+        {
+            if(error.error_code === 400)
+                return Errors.INVALID_PASSWORD;
+            
+            throw error;    
+        }
     }
 
     logOut() 
